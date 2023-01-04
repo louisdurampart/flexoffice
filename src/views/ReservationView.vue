@@ -23,7 +23,7 @@
 <td>{{ row.DateFin }}</td>
 <td>{{ row.NomRessource }}</td>
 <td>{{ row.Nom }}</td>
-<td> supprimer</td>
+<td @click="suppression"> supprimer</td>
     </tr>
   </table>
   </div>
@@ -60,5 +60,19 @@ export default {
  },
 
 },
+suppression:function(){
+  
+  var self = this;
+  //appel l'action fetchall du fichier action.php 
+   axios.get('http://localhost/test/sup_resa.php',{
+     action:'fetchall',
+   }).then(function(response){
+    
+    console.log(response)
+    self.allData = response.data;
+    
+   });
+ },
+
 }
 </script>

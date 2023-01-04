@@ -3,7 +3,7 @@
     <div class="Selection_Bureau">
 
       <b-row class="text-center">
-        <b-col class="mb-6" cols="2" height="">
+        <b-col class="mb-6" cols="12" height="">
           <h2>Votre Réservation</h2>
         </b-col>
         </b-row>
@@ -37,7 +37,8 @@
   <option disabled value="">Choisissez</option>
   <option v-for="row in allData" v-bind:key="row.id">{{ row.Nom }}</option>
 </select>
-
+</b-col>
+<b-col class="mb-6" cols="3" height="">
           <b-dropdown v-model="selected" id="RessourceID" text="Bureaux de la salle" variant="primary" class="m-2" >
             <b-dropdown-item v-for="row in allData" v-bind:key="row.id">{{ row.Nom }}</b-dropdown-item>
           </b-dropdown>
@@ -64,18 +65,19 @@
           </b-col>
       </b-row>
       <b-row class="text-center">
-          <b-col class="mb-6" cols="3">
+          <b-col class="mb-6" cols="12">
             <h2>Votre Sélection de bureau</h2>
-            <p> {{ selected }}</p><p> test</p>
+          
           </b-col>
       </b-row>
-      <b-row>
-        <b-col class="mb-6" cols="1">
-        </b-col>
-            <p>Du 17/09/2022 au 18/09/2022</p>
+      <b-row class="text-center">
+       
+        <b-col class="mb-6" cols="12">       
+            <p>{{ selected }}  test Du 17/09/2022 au 18/09/2022</p>
             <!-- <router-link to="/"> -->
             <v-btn  color="accent" elevation="4" outlined rounded @click="reservation">Je réserve</v-btn>
             <!-- </router-link> -->
+          </b-col>
       </b-row>
     </div>
 </template>
@@ -100,7 +102,8 @@ import axios from 'axios';
    //permet la récupération de tous les utilisateurs
    bureau:function(){
     var self = this;
-     axios.get('http://localhost/test/bureau.php',this.form)
+     axios.get('http://localhost/test/bureau.php',)
+    // axios.get('http://localhost/test/bureau.php',this.form)
      .then(function(response){
       console.log(response)
       self.allData = response.data;

@@ -1,10 +1,10 @@
 <template>
   <b-row class="text-center">
   
-    <b-container class="bv-example-row" id="Helloword">
+    <b-container class="bv-example-row" id="Helloword"  >
 <b-row align-h="start">
-  <b-col cols="8"><b-card elevation="2" outlined shaped class="mx-auto my-12">
-      <b-col class="mb-4">
+  <b-col cols="8" ><b-card elevation="2" outlined shaped class="mx-auto my-12" >
+      <b-col class="mb-6">
         <h1 class="display-2 font-weight-bold mb-3" dark color="indigo darken-3">
           Flex Office
         </h1>
@@ -42,9 +42,11 @@
     
 </div>
         </b-col>
+       
     </b-card>
+    <!-- <b-img thumbnail fluid src="../assets/accueil.png" alt="Image 1"></b-img> -->
     </b-col>
-  <b-col cols="4"><b-img thumbnail fluid src="../assets/accueil.png" alt="Image 1"></b-img></b-col>
+  
 </b-row>
 </b-container>
     
