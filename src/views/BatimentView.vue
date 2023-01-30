@@ -101,11 +101,13 @@
 </template>
 
 <script>
+
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 export default {
   data() {
     return {
-      date_debut: "",
-      date_fin: "",
+      date_debut: format(new Date(), 'yyyy-dd-MM'),
+      date_fin: format(new Date(), 'yyyy-dd-MM'),
       BatimentID: "",
       dateDisabled(ymd, date) {
         // Disable weekends (Sunday = `0`, Saturday = `6`) and
@@ -141,7 +143,6 @@ export default {
         this.$router.push("/");
       }
       else{
-      console.log(this.date_debut, this.date_fin, this.BatimentID);
       this.$store.commit("changedate_debut", this.date_debut);
       this.$store.commit("changedate_fin", this.date_fin);
       this.$store.commit("changeBatimentID", this.BatimentID);

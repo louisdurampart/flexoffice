@@ -36,6 +36,7 @@
 
   <script>
   import { mapState, mapGetters } from "vuex";
+  
 export default {
   computed: {
     ...mapGetters(["nom", "prenom", "email"])
@@ -44,7 +45,7 @@ export default {
 
   data() {
     return {
-      email: "",
+      
       drawer: false,
       group: null,
       logo: { width: 30, height: 30, class: "m1" }
