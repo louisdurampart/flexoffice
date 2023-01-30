@@ -12,6 +12,8 @@ export default new Vuex.Store({
  state: { 
   UtilisateurID: '',
     email: '',
+    nom: '',
+    prenom: '',
     date_debut:  format(new Date(), 'yyyy-dd-MM'), //moment().format('MMMM Do YYYY') ,
     date_fin: format(new Date(), 'yyyy-dd-MM'),
     BatimentID: '1',
@@ -25,6 +27,8 @@ export default new Vuex.Store({
   
   UtilisateurID: (state) => state.UtilisateurID,
     email: (state) => state.email,
+    nom: (state) => state.nom,
+    prenom: (state) => state.prenom,
     dateDebut: (state) => state.date_debut,
     dateFin: (state) => state.date_fin,
     batimentId: (state) => state.BatimentID,
@@ -46,6 +50,12 @@ export default new Vuex.Store({
   },
   changeemail (state, payload) {
     state.email = payload
+  },
+  changenom (state, payload) {
+    state.nom = payload
+  },
+  changeprenom (state, payload) {
+    state.prenom = payload
   },
     changedate_debut (state, payload) {
       state.date_debut = payload

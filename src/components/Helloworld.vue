@@ -96,7 +96,9 @@ export default {
           //changement de la valeur du mail
           this.$store.commit("changeutilisateurID", response.data.UtilisateurID);
           this.$store.commit("changeemail", response.data.Email);
-          
+          this.$store.commit("changenom", response.data.Nom);
+          this.$store.commit("changeprenom", response.data.Prenom);
+
           this.$store.state.email  // si l'email est pas null
             ? this.$router.push("/Selection_Batiment")
             : (this.erreur = //sinon on renvoi le message d'erreur
