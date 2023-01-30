@@ -1,10 +1,4 @@
 <template>
-    <div class="Selection_Batiment">
-    
-  </div>
+  <div class="Selection_Bureau">
+</div>
 </template>
-
-<script>
-  export default {
-     }
-</script>

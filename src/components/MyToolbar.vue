@@ -10,7 +10,7 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon>mdi-account-circle</v-icon>
+        <v-icon @click="goProfile"  v-if="this.$store.state.email !== ''">mdi-account-circle</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
@@ -49,6 +49,9 @@ export default {
   methods: {
     goHome() {
       this.$router.replace("/");
+    },
+    goProfile() {
+      this.$router.replace("/Monprofil");
     },
     goreservation() {
       this.$router.replace("/Reservation");

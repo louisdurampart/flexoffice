@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import Selection_Batiment from '../views/BatimentView.vue'
 import Creation from '../views/CreationView.vue'
 import Selection_Bureau from '../views/BureauView.vue'
-
+import Monprofil from '../views/MonProfilView.vue'
 
 Vue.use(VueRouter)
 
@@ -44,7 +44,12 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  },
+  {
+    path: '/Monprofil',
+    name: 'Monprofil',
+    component: Monprofil
+  },
 ]
 
 const router = new VueRouter({
