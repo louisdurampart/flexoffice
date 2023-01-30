@@ -8,7 +8,8 @@
         <b-img v-bind="logo" src="../assets/SIIlogo.svg"></b-img>
       </v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-
+      <v-toolbar-title @click="goProfile">{{nom}}</v-toolbar-title>
+        <v-toolbar-title @click="goProfile">{{prenom}}</v-toolbar-title>
       <v-btn icon>
         <v-icon @click="goProfile"  v-if="this.$store.state.email !== ''">mdi-account-circle</v-icon>
       </v-btn>
@@ -32,9 +33,13 @@
     </v-navigation-drawer>
   </div>
 </template>
-  import { mapState, mapGetters } from "vuex";
+
   <script>
+  import { mapState, mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(["nom", "prenom", "email"])
+  },
   name: "myToolbar",
 
   data() {
