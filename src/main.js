@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
@@ -8,9 +9,10 @@ import router from './router'
 import i18n from './i18n'
 import axios from 'axios'
 import VueSession from 'vue-session'
-import store from "./store";
+import store from "./store/index.js";
 
 Vue.use(VueSession)
+Vue.use(Vuex)
 Vue.prototype.$http = axios
 
 var app = new Vue({
@@ -24,5 +26,6 @@ var app = new Vue({
   render: h => h(App),
  
 }).$mount('#app')
+console.log(store)
 Vue.config.productionTip = false
 

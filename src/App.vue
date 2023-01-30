@@ -14,6 +14,7 @@
 <script>
 
   import myToolbar from "@/components/MyToolbar";
+  import { mapState } from "vuex";
   export default {
     name: "app",
     components: { myToolbar },

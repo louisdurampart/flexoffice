@@ -1,127 +1,189 @@
 <template>
-  
-    <div class="Selection_Bureau">
-
+  <b-container>
+  <div class="Selection_Bureau">
+    <form v-on:submit.prevent="reservation">
       <b-row class="text-center">
-        <b-col class="mb-6" cols="12" height="">
+        <b-col class="mb-6" cols="12" height>
           <h2>Votre Réservation</h2>
         </b-col>
+      </b-row>
+      <!-- 
+      <b-row class="justify-content-md-center">
+        <b-col class="mb-6" cols="3" height>
+          <label>Votre salle :  </label>
+        </b-col>
+        <b-col class="mb-6" cols="3" height>
+          <label>Votre bureau :  </label>
+      </b-col>
+      </b-row>-->
+      <b-row class="justify-content-xl-center" style="display: flex;">
+        <b-col class="mb-6" cols="6" height>
+         <b-row>
+          <select
+            v-model="form.BureauID"
+            @change="bureau"
+            class="custom-select"
+            style="width:200px;"
+            name="salle"
+            id="BureauID"
+          >
+            <option disabled value>Choisissez une salle</option>
+            <option value="1">Virage indianapolis</option>
+            <option value="2">Virage de mulsanne</option>
+            <option value="3">Ralentisseur michelin</option>
+            <option value="4">Ralentisseur playstation</option>
+            <option value="5">Virage du tertre rouge</option>
+            <option value="6">Virage ford</option>
+            <option value="7">Virage du karting</option>
+            <option value="8">Virage porsche</option>
+          </select>
         </b-row>
-        <b-row class="text-center">
-          <b-col class="mb-6" cols="2" height="">
+        <b-row>
+          <b-img width="250" fluid src="../assets/bureau2nom.png"  v-if="form.BureauID === ''"></b-img>
+          <b-img width="500" fluid src="../assets/plans/plan1.png"  v-if="form.BureauID === '1'"></b-img>
+          <b-img width="500" fluid src="../assets/plans/plan2.png"  v-if="form.BureauID === '2'"></b-img>
+          <b-img width="500" fluid src="../assets/plans/plan3.png"  v-if="form.BureauID === '3'"></b-img>
+          <b-img width="500" fluid src="../assets/plans/plan4.png" v-if="form.BureauID === '4'"></b-img>
+          <b-img width="300" fluid src="../assets/plans/plan5.png"  v-if="form.BureauID === '5'"></b-img>
+          <b-img width="300" fluid src="../assets/plans/plan6.png"  v-if="form.BureauID === '6'"></b-img>
+          <b-img width="250" fluid src="../assets/plans/plan7.png"  v-if="form.BureauID === '7'"></b-img>
+          <b-img width="500" fluid src="../assets/plans/plan8.png"  v-if="form.BureauID === '8'"></b-img>
 
-
-            <!-- <select v-model="selected">
-  <option disabled value="allo">Please select one</option>
-  <option>A</option>
-  <option>B</option>
-  <option>C</option>
-</select> -->
-
-        <b-dropdown v-model="BureauID" id="BureauID" text="Sélection de la salle" variant="primary" class="m-2">
-          
-          <b-dropdown-item @click="bureau" value="1">virage indianapolis</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="2">virage de mulsanne</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="3">ralentisseur michelin</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="4">ralentisseur playstation</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="5">virage du tertre rouge</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="6">virage ford</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="7">virage du karting</b-dropdown-item>
-          <b-dropdown-item @click="bureau" value="8">virage porsche</b-dropdown-item>
-        
-        </b-dropdown>
+          </b-row>
         </b-col>
-        <b-col class="mb-6" cols="3" height="">
-        
-          <select v-model="selected">
-  <option disabled value="">Choisissez</option>
-  <option v-for="row in allData" v-bind:key="row.id">{{ row.Nom }}</option>
-</select>
-</b-col>
-<b-col class="mb-6" cols="3" height="">
-          <b-dropdown v-model="selected" id="RessourceID" text="Bureaux de la salle" variant="primary" class="m-2" >
-            <b-dropdown-item v-for="row in allData" v-bind:key="row.id">{{ row.Nom }}</b-dropdown-item>
-          </b-dropdown>
-          <!-- <div class="panel body">
-      <div classe="table-responsive">
-        <table class="table table-bordered table-striped">
-    <tr>
-      <th scope="col">Nom</th>
-    </tr>
-    <tr v-for="row in allData" v-bind:key="row.id">
-<td>{{ row.Nom }}</td>
-    </tr>
-  </table>
-  </div>
-</div> -->
-        </b-col>
-      </b-row>
-      <b-row class="text-center">
         <b-col class="mb-6" cols="6">
-          <b-img  width="600"  b-bind="mainProps" fluid src="../assets/plans/room-01.png" alt="Image 1"></b-img>
+          <b-row>
+          <select
+            v-model="form.RessourceID"
+            class="custom-select"
+            style="width:200px;"
+            name="bureau"
+            id="RessourceID"
+            @change="getBureau()"
+          >
+            <option disabled value>Choisissez un bureau</option>
+            <option
+              v-for="(row,index) in allData"
+              :key="index"
+              :value="row.RessourceID"
+            >{{ row.Nom }}</option>
+          </select>
+        </b-row>
+        <b-row>
+          <b-img width="250" height="auto" fluid src="../assets/bureau1nom.png" v-if="form.BureauID === ''"></b-img>
+          <b-img width="250" height="auto" fluid src="../assets/bureau1nom.png" v-if="form.BureauID >= '1' && form.BureauID <='4' "></b-img>
+          <b-img width="250" height="auto" fluid src="../assets/bureau2nom.png" v-if="form.BureauID >= '5' && form.BureauID <='8' "></b-img>
+        </b-row>
         </b-col>
-          <b-col class="mb-6" cols="6">
-            <b-img  width="500" height="auto" b-bind="mainProps" fluid src="../assets/images_reelles/room-01.jpg" alt="Image 1"></b-img>
-          </b-col>
       </b-row>
+      
       <b-row class="text-center">
-          <b-col class="mb-6" cols="12">
-            <h2>Votre Sélection de bureau</h2>
-          
-          </b-col>
+        <b-col v-if="current_bureau !== null" class="mb-6" cols="12">
+          <h2>Votre Sélection de bureau</h2>
+        </b-col>
       </b-row>
-      <b-row class="text-center">
-       
-        <b-col class="mb-6" cols="12">       
-            <p>{{ selected }}  test Du 17/09/2022 au 18/09/2022</p>
-            <!-- <router-link to="/"> -->
-            <v-btn  color="accent" elevation="4" outlined rounded @click="reservation">Je réserve</v-btn>
-            <!-- </router-link> -->
-          </b-col>
+
+      <b-row v-if="current_bureau !== null" class="text-center">
+        <b-col class="mb-6" cols="12">
+          <p>{{ current_bureau.Nom }} Du {{ dateDebut}} au {{ dateFin}}</p>
+          <!-- <router-link to="/"> -->
+          <v-btn  elevation="4" outlined rounded @click="reservation">Je réserve</v-btn>
+          <!-- </router-link> -->
+        </b-col>
       </b-row>
-    </div>
+    </form>
+  </div>
+</b-container>
 </template>
 
 <script>
-import axios from 'axios';
-  export default {
-    data() {
-      return {
-        
-        allData:'',
-        allData2:'',
-        BureauID:'',
-        selected:'',  
-        date_debut:'',
-        date_fin:'',
-        RessourceID:'',
-      }      
+import axios from "axios";
+import { mapState, mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["dateDebut", "dateFin"])
+  },
+  data() {
+    return {
+      form: {
+        BureauID: "",
+        RessourceID: ""
+      },
+      allData: "",
+      allData2: "",
+      selected: "aucun bureau",
+      date_debut: "",
+      date_fin: "",
+      current_bureau: null
+    };
+  },
+
+  methods: {
+    //permet la récupération de tous les utilisateurs
+    bureau: function() {
+      if(this.$store.state.UtilisateurID === ""){
+        this.$store.commit("changeerreur", 'Erreur lors de la sélection des bureaux, vous n\'êtes pas connecté !');
+        this.$router.push("/");
+      }
+      else{
+      var self = this;
+      let params = {
+        id: this.form.BureauID,
+        date_debut: this.$store.state.date_debut,
+        date_fin: this.$store.state.date_fin
+      }
+      axios
+        .get('http://flex.sii-lemans.fr/api/bureau.php',{params}
+          //`http://flex.sii-lemans.fr/api/bureau.php?id=${this.form.BureauID}&date_debut=${this.$store.state.date_debut}&date_fin=${this.$store.state.date_fin}`
+           //"http://flex.sii-lemans.fr/api/bureau.php?id= date_debut= date_fin= " + this.form.BureauID ,this.$store.state.date_debut, this.$store.state.date_fin
+          //"http://flex.sii-lemans.fr/api/bureau.php?id=" ,body
+        )
+        // axios.get('http://localhost/test/bureau.php',)
+        .then(function(response) {
+          console.log(response.data);
+          self.allData = response.data;
+        });
+      }
     },
-    
-    methods: {
-   //permet la récupération de tous les utilisateurs
-   bureau:function(){
-    var self = this;
-     axios.get('http://localhost/test/bureau.php',)
-    // axios.get('http://localhost/test/bureau.php',this.form)
-     .then(function(response){
-      console.log(response)
-      self.allData = response.data;
+
+    getBureau: function() {
+      this.current_bureau = this.allData.find(
+        nomBureau => nomBureau.RessourceID == this.form.RessourceID
+      );
+    },
+    reservation: function() {
+      var self = this;
+
+      let body = {
+        ...this.form,
+        // RessourceID:
+        ...{
+          UtilisateurID: this.$store.state.UtilisateurID,
+          date_debut: this.$store.state.date_debut,
+          date_fin: this.$store.state.date_fin
+        }
+      };
       
-     });
-   },
-   reservation:function(){
-    var self = this;
-     axios.create('http://localhost/test/insert_resa.php',{
-       BureauID:this.$BureauID,
-       date_debut:this.$date_debut,
-       date_fin:this.$date_fin,
-       RessourceID:this.$RessourceID,
-     }).then(function(response){
-      console.log(response)
-      self.allData2 = response.data;
-     });
-   },
-},
-  }
+      console.log(body);
+      axios
+        .post("http://flex.sii-lemans.fr/api/insert_resa.php", body)
+
+        .then(response => {
+          console.log(response);
+          self.allData2 = response.data;
+          this.$router.push("/Reservation");
+        });
+      }
+    }
+};
 </script>
+<style scoped>
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  background-color: rgb(2, 77, 151);
+  border: 6px;
+  color: aliceblue;
+  border-color: #fff transparent transparent transparent;
+}
+</style>

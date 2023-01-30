@@ -7,7 +7,7 @@
         </b-col>
       </b-row>
 
-
+      <p class="color">{{ this.$store.state.confirmation }}</p>
       <b-col cols="8" > 
       <div class="panel body">
       <div classe="table-responsive">
@@ -23,7 +23,9 @@
 <td>{{ row.DateFin }}</td>
 <td>{{ row.NomRessource }}</td>
 <td>{{ row.Nom }}</td>
-<td @click="suppression"> supprimer</td>
+<td>
+<button @click="suppression(row.ReservationID)" > supprimer</button>
+</td>
     </tr>
   </table>
   </div>
@@ -35,10 +37,12 @@
 <script>
 
 import axios from 'axios';
+import { mapState, mapGetters } from "vuex";
 export default {
   data() {
     return {  
      UtilisateurID:'1',    
+     ReservationID:'',
      allData:''  
     }
     
@@ -46,33 +50,41 @@ export default {
   methods: {
  //permet la récupération de tous les utilisateurs
  reservation:function(){
+  var self = this;
+  
+      axios
+        .get("http://flex.sii-lemans.fr/api/read_resa.php?id="+this.$store.state.UtilisateurID,)
+        // axios.get('http://localhost/test/bureau.php',)
+        .then(function(response) {
+          console.log(response);
+          self.allData = response.data;
+        });
+    },
+ suppression:function(id){
   
   var self = this;
   //appel l'action fetchall du fichier action.php 
-   axios.get('http://localhost/test/read_resa.php',{
-     action:'fetchall',
-   }).then(function(response){
-    
+   axios.delete('http://flex.sii-lemans.fr/api/sup_resa.php?id='+id)
+   .then((response)=>{
+    this.$store.commit("changeconfirmation", 'Votre réservation a bien été annuler');
+   // PK ça marche pas ici ? a vérifier
     console.log(response)
     self.allData = response.data;
     
    });
  },
-
 },
-suppression:function(){
-  
-  var self = this;
-  //appel l'action fetchall du fichier action.php 
-   axios.get('http://localhost/test/sup_resa.php',{
-     action:'fetchall',
-   }).then(function(response){
-    
-    console.log(response)
-    self.allData = response.data;
-    
-   });
- },
+
 
 }
 </script>
+
+<style scoped>
+.color {
+  position: relative;
+  font-family: Arial;
+  border: 3px;
+  color: rgb(34, 185, 34);
+}
+
+</style>
