@@ -3,10 +3,8 @@
     <v-app-bar dark color="indigo darken-3" clipped-left app>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title @click="goHome">Le Mans Flexoffice</v-toolbar-title>
-      <v-app-bar-nav-icon>
-        <b-img v-bind="logo" src="../assets/SIIlogo.svg"></b-img>
-      </v-app-bar-nav-icon>
+      <v-toolbar-title >Le Mans Flexoffice</v-toolbar-title>
+        <b-img  src="../assets/SIIlogo.svg"></b-img>
       <v-spacer></v-spacer>
       <v-toolbar-title @click="goProfile">{{nom}}</v-toolbar-title>
         <v-toolbar-title @click="goProfile">{{prenom}}</v-toolbar-title>
