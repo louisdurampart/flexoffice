@@ -116,7 +116,7 @@
 
 <script>
 import axios from "axios";
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters(["dateDebut", "dateFin"])
@@ -127,12 +127,15 @@ export default {
         BureauID: "",
         RessourceID: ""
       },
+
       allData: "",
       allData2: "",
       selected: "aucun bureau",
+      dateDebut: this.$store.state.date_debut,
+      dateFin: this.$store.state.date_fin,
       date_debut: "",
       date_fin: "",
-      current_bureau: {}
+      current_bureau: null
     };
   },
 

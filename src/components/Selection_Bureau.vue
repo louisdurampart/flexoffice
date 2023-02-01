@@ -5,9 +5,10 @@
 
 <script>
 
-  export default {
-    computed: {
-     
+import { mapState, mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["dateDebut", "dateFin"])
      },
     data() {
       return {

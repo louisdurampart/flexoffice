@@ -55,7 +55,7 @@
       <div class="mb-6"></div>
       <b-row class="text-center">
         <b-col class="mb-6" cols="12">
-        <v-btn color="primary" elevation="4" outlined rounded @click="envoiedata()">Réserver aujourd'hui</v-btn>
+        <v-btn color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
         <v-btn color="primary" elevation="4" outlined rounded type="submit">Réserver la semaine</v-btn>
       </b-col>
         </b-row>
@@ -106,8 +106,8 @@ import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 export default {
   data() {
     return {
-      date_debut: format(new Date(), 'yyyy-dd-MM'),
-      date_fin: format(new Date(), 'yyyy-dd-MM'),
+      date_debut: "",
+      date_fin: "",
       BatimentID: "",
       dateDisabled(ymd, date) {
         // Disable weekends (Sunday = `0`, Saturday = `6`) and
@@ -128,8 +128,8 @@ export default {
       }
       else{
       console.log(this.date_debut, this.date_fin, this.BatimentID);
-      this.$store.commit("changedate_debut", date_debut); 
-      this.$store.commit("changedate_fin", date_fin); 
+      this.$store.commit("changedate_debut", format(new Date(), 'yyyy-dd-MM'));
+      this.$store.commit("changedate_fin", format(new Date(), 'yyyy-dd-MM'));
       this.$store.commit("changeBatimentID", this.BatimentID);
       this.$router.push("/Selection_Bureau");
     }
@@ -139,6 +139,7 @@ export default {
       //this.form comment récupérer les datas du form?
       if(this.$store.state.UtilisateurID === ""){
         this.$store.commit("changeerreur", 'Erreur lors de la sélection de date, vous n\'êtes pas connecté !');
+        
         console.log(this.$store.state.erreur);
         this.$router.push("/");
       }
