@@ -53,7 +53,7 @@ export default {
   var self = this;
   
       axios
-        .get("http://flex.sii-lemans.fr/api/read_resa.php?id="+this.$store.state.UtilisateurID,)
+        .get("https://flex.sii-lemans.fr/api/read_resa.php?id="+this.$store.state.UtilisateurID,)
         // axios.get('http://localhost/test/bureau.php',)
         .then(function(response) {
           console.log(response);
@@ -64,7 +64,7 @@ export default {
   
   var self = this;
   //appel l'action fetchall du fichier action.php 
-   axios.delete('http://flex.sii-lemans.fr/api/sup_resa.php?id='+id)
+   axios.delete('https://flex.sii-lemans.fr/api/sup_resa.php?id='+id)
    .then((response)=>{
     this.$store.commit("changeconfirmation", 'Votre réservation a bien été annuler');
    // PK ça marche pas ici ? a vérifier

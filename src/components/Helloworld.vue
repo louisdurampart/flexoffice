@@ -91,7 +91,7 @@ export default {
     fetchAllData: function() {
       var self = this;
       axios
-        .post("http://flex.sii-lemans.fr/api/connexion.php", this.form)
+        .post("https://flex.sii-lemans.fr/api/connexion.php", this.form)
         .then(response => {
           //changement de la valeur du mail
           this.$store.commit("changeutilisateurID", response.data.UtilisateurID);

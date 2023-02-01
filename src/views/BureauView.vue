@@ -1,6 +1,7 @@
 <template>
   <b-container>
   <div class="Selection_Bureau">
+    
     <form v-on:submit.prevent="reservation">
       <b-row class="text-center">
         <b-col class="mb-6" cols="12" height>
@@ -17,7 +18,7 @@
       </b-col>
       </b-row>-->
       <b-row class="justify-content-xl-center" style="display: flex;">
-        <b-col class="mb-6" cols="6" height>
+        <b-col class="mb-5" cols="4" height>
          <b-row>
           <select
             v-model="form.BureauID"
@@ -51,7 +52,7 @@
 
           </b-row>
         </b-col>
-        <b-col class="mb-6" cols="6">
+        <b-col class="mb-5" cols="4">
           <b-row>
           <select
             v-model="form.RessourceID"
@@ -75,17 +76,34 @@
           <b-img width="250" height="auto" fluid src="../assets/bureau2nom.png" v-if="form.BureauID >= '5' && form.BureauID <='8' "></b-img>
         </b-row>
         </b-col>
+        <b-col class="mb-2" cols="4" v-if="current_bureau !== null" >
+
+     
+          <b-card-body class="card">
+      <b-card-title>Mon Bureau</b-card-title>
+      <b-card-sub-title class="mb-2">équipements proposés par le bureau</b-card-sub-title>
+      <b-list-group flush>
+        <b-list-group-item>Bureau levant : {{ bureauLevant }} </b-list-group-item>
+      <b-list-group-item>Nombre  de réplicateurs : {{  current_bureau.NombreRéplicateur}}</b-list-group-item>
+      <b-list-group-item>Nombre d'écran : {{ current_bureau.NombreEcran}}</b-list-group-item>
+      <b-list-group-item>Nombre de clavier :{{ current_bureau.NombreClavier }}</b-list-group-item>
+      <b-list-group-item>Nombre de souris : {{ current_bureau.NombreSouris }}</b-list-group-item>
+    </b-list-group>
+    </b-card-body>
+
+         
+          </b-col>
       </b-row>
       
       <b-row class="text-center">
         <b-col v-if="current_bureau !== null" class="mb-6" cols="12">
-          <h2>Votre Sélection de bureau</h2>
+          <h2>Votre Sélection de bureau </h2>
         </b-col>
       </b-row>
 
       <b-row v-if="current_bureau !== null" class="text-center">
         <b-col class="mb-6" cols="12">
-          <p>{{ current_bureau.Nom }} Du {{ dateDebut}} au {{ dateFin}}</p>
+          <p>Je réserve le {{ current_bureau.Nom }} Du {{ dateDebut}} au {{ dateFin}} </p>
           <!-- <router-link to="/"> -->
           <v-btn  elevation="4" outlined rounded @click="reservation">Je réserve</v-btn>
           <!-- </router-link> -->
@@ -114,7 +132,7 @@ export default {
       selected: "aucun bureau",
       date_debut: "",
       date_fin: "",
-      current_bureau: null
+      current_bureau: {}
     };
   },
 
@@ -133,7 +151,7 @@ export default {
         date_fin: this.$store.state.date_fin
       }
       axios
-        .get('http://flex.sii-lemans.fr/api/bureau.php',{params}
+        .get('https://flex.sii-lemans.fr/api/bureau.php',{params}
           //`http://flex.sii-lemans.fr/api/bureau.php?id=${this.form.BureauID}&date_debut=${this.$store.state.date_debut}&date_fin=${this.$store.state.date_fin}`
            //"http://flex.sii-lemans.fr/api/bureau.php?id= date_debut= date_fin= " + this.form.BureauID ,this.$store.state.date_debut, this.$store.state.date_fin
           //"http://flex.sii-lemans.fr/api/bureau.php?id=" ,body
@@ -166,13 +184,18 @@ export default {
       
       console.log(body);
       axios
-        .post("http://flex.sii-lemans.fr/api/insert_resa.php", body)
+        .post("https://flex.sii-lemans.fr/api/insert_resa.php", body)
 
         .then(response => {
           console.log(response);
           self.allData2 = response.data;
           this.$router.push("/Reservation");
         });
+      }
+    },
+    computed : {
+      bureauLevant(){
+        return this.current_bureau.Levant > 0 ? "oui" :"non"
       }
     }
 };
@@ -186,4 +209,7 @@ export default {
   color: aliceblue;
   border-color: #fff transparent transparent transparent;
 }
+.card {
+ border:1px dotted black;
+ }
 </style>

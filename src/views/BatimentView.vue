@@ -55,7 +55,7 @@
       <div class="mb-6"></div>
       <b-row class="text-center">
         <b-col class="mb-6" cols="12">
-        <v-btn color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
+        <v-btn color="primary" elevation="4" outlined rounded @click="envoiedata()">Réserver aujourd'hui</v-btn>
         <v-btn color="primary" elevation="4" outlined rounded type="submit">Réserver la semaine</v-btn>
       </b-col>
         </b-row>
@@ -128,8 +128,8 @@ export default {
       }
       else{
       console.log(this.date_debut, this.date_fin, this.BatimentID);
-      this.$store.commit("changedate_debut", this.date_debut); // changer en date d'aujourd'hui
-      this.$store.commit("changedate_fin", this.date_fin); // changer en date d'aujourd'hui
+      this.$store.commit("changedate_debut", date_debut); 
+      this.$store.commit("changedate_fin", date_fin); 
       this.$store.commit("changeBatimentID", this.BatimentID);
       this.$router.push("/Selection_Bureau");
     }
@@ -143,6 +143,7 @@ export default {
         this.$router.push("/");
       }
       else{
+        console.log(this.date_debut, this.date_fin, this.BatimentID);
       this.$store.commit("changedate_debut", this.date_debut);
       this.$store.commit("changedate_fin", this.date_fin);
       this.$store.commit("changeBatimentID", this.BatimentID);
