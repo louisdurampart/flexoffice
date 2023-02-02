@@ -20,6 +20,7 @@ export default new Vuex.Store({
     BureauID:'1',
     RessourceID:'1',
     erreur:'',
+    erreurresa:'',
     confirmation:''
    
 },
@@ -35,6 +36,7 @@ export default new Vuex.Store({
     bureauId: (state) => state.BureauID,
     ressourceId: (state) => state.RessourceID,
     erreur: (state) => state.erreur,
+    erreurresa: (state) => state.erreurresa,
     confirmation: (state) => state.confirmation,
 
     formattedDateDebut: (state) => {
@@ -74,6 +76,9 @@ export default new Vuex.Store({
     },
     changeerreur (state, payload) {
       state.erreur = payload
+    },
+    changeerreurresa (state, payload) {
+      state.erreurresa = payload
     },
     changeconfirmation (state, payload) {
       state.confirmation = payload
