@@ -2,34 +2,44 @@
   <b-row class="text-center">
     <b-container class="bv-example-row" id="Helloword">
       <b-row align-h="start">
-        <b-col cols="12">
+        <b-col cols="3"></b-col>
+        <b-col cols="6">
           <b-card elevation="2" outlined shaped class="mx-auto my-12">
-            <b-col class="mb-6">
-              <h1 class="display-2 font-weight-bold mb-3" dark color="indigo darken-3">Flex Office</h1>
-            </b-col>
-            <b-col class="mb-6" cols="12">
-              <form v-on:submit.prevent="fetchAllData">
-                <label for="inputEmail" type="email">Email :</label>
-                <input id="inputEmail" placeholder="Identifiant SII" elevation="4" v-model="form.inputEmail" />
+            <h1 class="display-2 font-weight-bold mb-3" dark color="indigo darken-3">Flex Office</h1>
 
-                <b-col class="mb-6" cols="12">
-                  <label for="inputMdp" type="mdp">Mot de passe :</label>
-                  <input id="inputMdp" placeholder="Mot de passe" elevation="4" v-model="form.inputMdp"
-                    type="password" />
-                </b-col>
-                <p class="color">{{ erreur }} {{ this.$store.state.erreur }}</p>
-                <b-col class="mb-6" cols="12">
-                  <v-btn class="pa-2 ml-auto" color="accent" elevation="4" type="submit" outlined rounded>Se
-                    connecter</v-btn>
-                </b-col>
-              </form>
+            <form v-on:submit.prevent="fetchAllData">
+              <b-row class="text-center justify-content-md-center">
 
-              <!-- <router-link to="/Creation"> -->
-              <!-- <router-link to="/">
+                <label for="inputEmail" type="email" class="pr-4">Email </label>
+              </b-row>
+              <b-row class="text-center justify-content-md-center">
+                <input class="test form-control rounded" id="inputEmail" placeholder="Identifiant SII" elevation="4"
+                  v-model="form.inputEmail" />
+              </b-row>
+
+
+              <b-row class="text-center justify-content-md-center">
+                <label for="inputMdp" type="mdp" class="pt-4">Mot de passe</label>
+              </b-row>
+              <b-row class="text-center justify-content-md-center">
+                <input class="test form-control rounded" id="inputMdp" placeholder="Mot de passe" elevation="4"
+                  v-model="form.inputMdp" type="password" />
+              </b-row>
+
+
+              <p class="color">{{ erreur }} {{ this.$store.state.erreur }}</p>
+              <b-col class="mb-6" cols="12">
+                <v-btn class="pa-2 ml-auto" color="accent" elevation="4" type="submit" outlined rounded>Se
+                  connecter</v-btn>
+              </b-col>
+            </form>
+
+            <!-- <router-link to="/Creation"> -->
+            <!-- <router-link to="/">
                 <a class="pa-2">créez un compte (In comming)</a>
               </router-link>
               -->
-            </b-col>
+
 
             <!-- <b-col class="mb-5" cols="12">
               <div id="my-container">
@@ -110,5 +120,11 @@ export default {
   font-family: Arial;
   border: 3px;
   color: rgb(182, 23, 23);
+}
+
+.test {
+  border: solid 2px #82b1ff;
+  height: 30px;
+  width: 200px;
 }
 </style>
