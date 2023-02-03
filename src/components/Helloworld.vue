@@ -10,33 +10,17 @@
             <b-col class="mb-6" cols="12">
               <form v-on:submit.prevent="fetchAllData">
                 <label for="inputEmail" type="email">Email :</label>
-                <input
-                  id="inputEmail"
-                  placeholder="Identifiant SII"
-                  elevation="4"
-                  v-model="form.inputEmail"
-                />
+                <input id="inputEmail" placeholder="Identifiant SII" elevation="4" v-model="form.inputEmail" />
 
                 <b-col class="mb-6" cols="12">
                   <label for="inputMdp" type="mdp">Mot de passe :</label>
-                  <input
-                    id="inputMdp"
-                    placeholder="Mot de passe"
-                    elevation="4"
-                    v-model="form.inputMdp"
-                    type="password"
-                  />
+                  <input id="inputMdp" placeholder="Mot de passe" elevation="4" v-model="form.inputMdp"
+                    type="password" />
                 </b-col>
                 <p class="color">{{ erreur }} {{ this.$store.state.erreur }}</p>
                 <b-col class="mb-6" cols="12">
-                  <v-btn
-                    class="pa-2 ml-auto"
-                    color="accent"
-                    elevation="4"
-                    type="submit"
-                    outlined
-                    rounded
-                  >Se connecter</v-btn>
+                  <v-btn class="pa-2 ml-auto" color="accent" elevation="4" type="submit" outlined rounded>Se
+                    connecter</v-btn>
                 </b-col>
               </form>
 
@@ -94,15 +78,18 @@ export default {
         .post("https://flex.sii-lemans.fr/api/connexion.php", this.form)
         .then(response => {
           //changement de la valeur du mail
-          this.$store.commit("changeutilisateurID", response.data.UtilisateurID);
+
+          if(response.data.Email){
+            this.$store.commit("changeutilisateurID", response.data.UtilisateurID);
           this.$store.commit("changeemail", response.data.Email);
           this.$store.commit("changenom", response.data.Nom);
           this.$store.commit("changeprenom", response.data.Prenom);
-
-          this.$store.state.email  // si l'email est pas null
-            ? this.$router.push("/Selection_Batiment")
-            : (this.erreur = //sinon on renvoi le message d'erreur
-                "Mot de passe ou Email incorect. Veuillez réessayer.");
+          this.$router.push("/Selection_Batiment")
+          }   // si l'email est pas null
+            else{
+              this.erreur = //sinon on renvoi le message d'erreur
+                "Mot de passe ou Email incorect. Veuillez réessayer."
+            }   
          // console.log(response.data.Email);
           // this.$errored,
           self.allData = response.data;

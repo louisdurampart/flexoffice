@@ -1,29 +1,30 @@
 <template>
   <div id="toolbar-info">
     <v-app-bar dark color="indigo darken-3" clipped-left app>
-
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+     
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="this.$store.state.email !== ''"></v-app-bar-nav-icon>
+      <b-img  src="../assets/SIIlogo.svg"></b-img>
       <v-toolbar-title >Le Mans Flexoffice</v-toolbar-title>
-        <b-img  src="../assets/SIIlogo.svg"></b-img>
+        
       <v-spacer></v-spacer>
       <v-toolbar-title @click="goProfile">{{nom}}</v-toolbar-title>
         <v-toolbar-title @click="goProfile">{{prenom}}</v-toolbar-title>
       <v-btn icon>
-        <v-icon @click="goProfile"  v-if="this.$store.state.email !== ''">mdi-account-circle</v-icon>
+        <v-icon @click="goProfile" v-if="this.$store.state.email !== ''" >mdi-account-circle</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+    <v-navigation-drawer v-model="drawer" absolute bottom temporary v-if="this.$store.state.email !== ''">
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item @click="goHome">
-            <v-list-item-title >Home</v-list-item-title>
+            <v-list-item-title >Déconnexion</v-list-item-title>
           </v-list-item>
 
-          <v-list-item @click="goreservation"  v-if="this.$store.state.email !== ''">
+          <v-list-item @click="goreservation"  >
             <v-list-item-title>Mes Réservation</v-list-item-title>
           </v-list-item>
 
-          <v-list-item @click="gobatiment"  v-if="this.$store.state.email !== ''">
+          <v-list-item @click="gobatiment"  >
             <v-list-item-title>Faire une réservation</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
@@ -33,7 +34,7 @@
 </template>
 
   <script>
-  import { mapState, mapGetters } from "vuex";
+  import {  mapGetters } from "vuex";
   
 export default {
   computed: {
@@ -46,12 +47,15 @@ export default {
       
       drawer: false,
       group: null,
-      logo: { width: 30, height: 30, class: "m1" }
+      logo: { width: 35, height: 35, class: "m1" }
     };
   },
 
   methods: {
     goHome() {
+      this.$store.commit("changeemail", "");
+      this.$store.commit("changenom","");
+          this.$store.commit("changeprenom","");
       this.$router.replace("/");
     },
     goProfile() {

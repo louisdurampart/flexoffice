@@ -50,18 +50,48 @@
             ></b-form-datepicker>
           </div>
         </b-col>
+        
       </b-row>
 
       <div class="mb-6"></div>
       <b-row class="text-center">
         <b-col class="mb-6" cols="12">
-        <v-btn color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
-        <v-btn color="primary" elevation="4" outlined rounded type="submit">Réserver la semaine</v-btn>
+        <v-btn  color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
+        <!-- <v-btn color="primary " class="ms-4" elevation="4" outlined rounded >Réserver la semaine</v-btn> -->
       </b-col>
-        </b-row>
-      <b-row class="ligne"></b-row>
+    </b-row>
+      <b-row class="text-center">
+        <!-- v-if="this.date_debut !== ''" -->
+        <b-col class="mb-6" cols="12" v-if="this.date_debut !== '' && this.date_fin >= this.date_debut && this.date_fin !== ''" >
+          <v-btn color="primary" elevation="4" outlined rounded type="submit">Je valide</v-btn>
+        </b-col>
+      </b-row>
+ 
+      <b-row class="ligne "></b-row>
+      <b-row b-row class="justify-content-md-center text-center  " >
+        <b-col cols="10">
+        <v-btn class ="ma-4" color="primary"  elevation="4" outlined rounded @click="reservation">Afficher mes réservations</v-btn>
+        <div class="panel body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th scope="col">Date Debut de réservation</th>
+                <th scope="col">Date Fin de réservation</th>
+                <th scope="col">Nom du Bureau</th>
+                <th scope="col">nom de la salle</th>
+              </tr>
+              <tr v-for="row in allData" v-bind:key="row.id">
+                <td>{{ row.DateDebut }}</td>
+                <td>{{ row.DateFin }}</td>
+                <td>{{ row.NomRessource }}</td>
+                <td>{{ row.Nom }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </b-col>
+      </b-row>
       <div class="mb-6"></div>
-
       <!-- <b-row class="row justify-content-md-center" margin-top="25px">
         <b-col class="mb-6" cols="3" >
           <label for="BatimentID">Choisissez le batiment :</label>
@@ -73,12 +103,7 @@
           </select>
         </b-col>
       </b-row>-->
-      <b-row class="text-center">
-        <!-- v-if="this.date_debut !== ''" -->
-        <b-col class="mb-6" cols="12" v-if="this.date_debut !== '' && this.date_fin >= this.date_debut && this.date_fin !== ''" >
-          <v-btn color="primary" elevation="4" outlined rounded type="submit">Je valide</v-btn>
-        </b-col>
-      </b-row>
+     
     </form>
 
     <!-- 
@@ -101,7 +126,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 export default {
   data() {
@@ -109,6 +134,7 @@ export default {
       date_debut: "",
       date_fin: "",
       BatimentID: "",
+      allData: '',
       dateDisabled(ymd, date) {
         // Disable weekends (Sunday = `0`, Saturday = `6`) and
         // disable days that fall on the 13th of the month
@@ -134,6 +160,16 @@ export default {
       this.$router.push("/Selection_Bureau");
     }
 
+    },
+    reservation: function () {
+      var self = this;
+      axios
+        .get("https://flex.sii-lemans.fr/api/read_resa.php?id=" + this.$store.state.UtilisateurID,)
+        // axios.get('http://localhost/test/bureau.php',)
+        .then(function (response) {
+          console.log(response);
+          self.allData = response.data;
+        });
     },
     envoiedata: function() {
       //this.form comment récupérer les datas du form?
@@ -175,5 +211,8 @@ export default {
   width: 100%;
   background-color: rgb(2, 77, 151);
   padding: 5px;
+}
+.bouton{
+  padding: 0 20px;
 }
 </style>
