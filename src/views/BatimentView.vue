@@ -57,7 +57,7 @@
       <b-row class="text-center">
         <b-col class="mb-6" cols="12">
         <v-btn  color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
-        <!-- <v-btn color="primary " class="ms-4" elevation="4" outlined rounded >Réserver la semaine</v-btn> -->
+         <v-btn color="primary " class="ms-4" elevation="4" outlined rounded  @click="semaine()">Réserver la semaine</v-btn> 
       </b-col>
     </b-row>
       <b-row class="text-center">
@@ -127,7 +127,7 @@
 
 <script>
 import axios from 'axios';
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+import { format, addDays,getDay } from 'date-fns'
 export default {
   data() {
     return {
@@ -157,6 +157,22 @@ export default {
       this.$store.commit("changedate_debut", format(new Date(), 'yyyy-dd-MM'));
       this.$store.commit("changedate_fin", format(new Date(), 'yyyy-dd-MM'));
       this.$store.commit("changeBatimentID", this.BatimentID);
+      this.$router.push("/Selection_Bureau");
+    }
+
+    },
+    semaine:function(){
+      if(this.$store.state.UtilisateurID === ""){
+        this.$store.commit("changeerreur", 'Erreur lors de la sélection de date, vous n\'êtes pas connecté !');
+        console.log(this.$store.state.erreur);
+        this.$router.push("/");
+      }
+      else{
+      console.log(this.date_debut, this.date_fin, this.BatimentID);
+      const today = new Date();
+      this.$store.commit("changedate_debut", new Date());
+      this.$store.commit("changedate_debut", format(today, 'yyyy-dd-MM'));
+this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), 'yyyy-dd-MM'));
       this.$router.push("/Selection_Bureau");
     }
 
