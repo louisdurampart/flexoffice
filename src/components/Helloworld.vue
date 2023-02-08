@@ -41,7 +41,7 @@
               -->
 
 
-            <!-- <b-col class="mb-5" cols="12">
+             <b-col class="mb-5" cols="12">
               <div id="my-container">
                 <div class="my-3">
                  
@@ -49,10 +49,11 @@
                     id="popover-reactive-1"
                     variant="primary"
                     ref="button"
-                  >Mot de passe oublié (In comming)</b-button>
+                    @click="Motdepasse"
+                  >Mot de passe oublié </b-button>
                 </div>
               </div>
-            </b-col> -->
+            </b-col> 
           </b-card>
           <!-- <b-img thumbnail fluid src="../assets/accueil.png" alt="Image 1"></b-img> -->
         </b-col>
@@ -109,7 +110,8 @@ export default {
           // this.errored = true
         })
         
-    }
+    },
+    
   }
 };
 </script>

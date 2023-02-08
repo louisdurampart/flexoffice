@@ -56,6 +56,8 @@ export default {
       this.$store.commit("changeemail", "");
       this.$store.commit("changenom","");
           this.$store.commit("changeprenom","");
+          this.$store.commit("changeerreur",""),
+          this.$store.commit("changeerreurresa","")
       this.$router.replace("/");
     },
     goProfile() {

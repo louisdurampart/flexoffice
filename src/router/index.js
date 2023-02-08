@@ -5,6 +5,8 @@ import Selection_Batiment from '../views/BatimentView.vue'
 import Creation from '../views/CreationView.vue'
 import Selection_Bureau from '../views/BureauView.vue'
 import Monprofil from '../views/MonProfilView.vue'
+import MotDePasse from '../views/MotDePasseView.vue'
+import Email from '../views/EmailView.vue'
 
 Vue.use(VueRouter)
 
@@ -49,6 +51,16 @@ const routes = [
     path: '/Monprofil',
     name: 'Monprofil',
     component: Monprofil
+  },
+  {
+    path: '/MotDePasse',
+    name: 'MotDePasse',
+    component: MotDePasse
+  },
+  {
+    path: '/Email',
+    name: 'Email',
+    component: Email
   },
 ]
 

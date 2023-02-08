@@ -117,6 +117,7 @@ export default {
       allData: "",
       erreur: "",
       allData2: "",
+      email:"",
       selected: "aucun bureau",
       dateDebut: this.$store.state.date_debut,
       dateFin: this.$store.state.date_fin,
@@ -168,7 +169,8 @@ export default {
         ...{
           UtilisateurID: this.$store.state.UtilisateurID,
           date_debut: this.$store.state.date_debut,
-          date_fin: this.$store.state.date_fin
+          date_fin: this.$store.state.date_fin,
+          email: this.$store.state.email
         }
       };
 
