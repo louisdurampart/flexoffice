@@ -4,7 +4,7 @@
      
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="this.$store.state.email !== ''"></v-app-bar-nav-icon>
       <b-img  src="../assets/SIIlogo.svg"></b-img>
-      <v-toolbar-title >Le Mans Flexoffice</v-toolbar-title>
+      <v-toolbar-title @click="goHome" >Le Mans Flexoffice</v-toolbar-title>
         
       <v-spacer></v-spacer>
       <v-toolbar-title @click="goProfile">{{nom}}</v-toolbar-title>
