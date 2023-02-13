@@ -8,8 +8,6 @@
               <h1 class="display-2 font-weight-bold mb-3" dark color="indigo darken-3">Flex Office</h1>
   
               <form v-on:submit.prevent="fetchAllData">
-              
-  
                 <b-row class="text-center justify-content-md-center">
                   <label for="inputEmail" type="mdp" class="pt-4">Nouveau Mot de passe</label>
                 </b-row>
