@@ -20,3 +20,6 @@
     components: { myToolbar },
   };
 </script>
+<style scoped>
+/* *{background: #f2f2f2;} */
+</style>

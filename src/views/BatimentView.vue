@@ -12,85 +12,110 @@
   <area shape="rect" coords="150,280,600,600" href="/Selection_Bureau" alt="espace dev">
     </map>-->
 
-    <b-row class="text-center">
+    <!-- <b-row class="text-center">
       <b-col class="mb-6" cols="12">
         <h1 class="display-2 font-weight-bold mb-3" dark color="indigo darken-3">Le Mans Flex Office</h1>
       </b-col>
-    </b-row>
+    </b-row> -->
 
     <form v-on:submit.prevent="envoiedata">
       <b-row class="row justify-content-md-center">
         <b-col class="text-center" md="3">
           <label for="date_debut">Date de début :</label>
           <div>
-            <b-form-datepicker
-              v-model="date_debut"
-              :date-disabled-fn="dateDisabled"
-              locale="fr"
-              placeholder="Choisissez une date"
-              id="date_debut"
-              today-button
-              reset-button
-              close-button
-            ></b-form-datepicker>
+            <b-form-datepicker v-model="date_debut" :date-disabled-fn="dateDisabled" locale="fr"
+              placeholder="Choisissez une date" id="date_debut" today-button reset-button
+              close-button></b-form-datepicker>
           </div>
         </b-col>
         <b-col class="text-center" md="3">
           <label for="date_fin">Date de fin :</label>
           <div>
-            <b-form-datepicker
-              v-model="date_fin"
-              :date-disabled-fn="dateDisabled"
-              locale="fr"
-              placeholder="Choisissez une date"
-              id="date_fin"
-              today-button
-              reset-button
-              close-button
-            ></b-form-datepicker>
+            <b-form-datepicker v-model="date_fin" :date-disabled-fn="dateDisabled" locale="fr"
+              placeholder="Choisissez une date" id="date_fin" today-button reset-button
+              close-button></b-form-datepicker>
           </div>
         </b-col>
-        
+
       </b-row>
 
       <div class="mb-6"></div>
       <b-row class="text-center">
         <b-col class="mb-6" cols="12">
-        <v-btn  color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
-         <v-btn color="primary " class="ms-4" elevation="4" outlined rounded  @click="semaine()">Réserver la semaine</v-btn> 
-      </b-col>
-    </b-row>
+          <v-btn color="primary" elevation="4" outlined rounded @click="jour()">Réserver aujourd'hui</v-btn>
+          <v-btn color="primary " class="ms-4" elevation="4" outlined rounded @click="semaine()">Réserver la
+            semaine</v-btn>
+        </b-col>
+      </b-row>
       <b-row class="text-center">
         <!-- v-if="this.date_debut !== ''" -->
-        <b-col class="mb-6" cols="12" v-if="this.date_debut !== '' && this.date_fin >= this.date_debut && this.date_fin !== ''" >
+        <b-col class="mb-6" cols="12"
+          v-if="this.date_debut !== '' && this.date_fin >= this.date_debut && this.date_fin !== ''">
           <v-btn color="primary" elevation="4" outlined rounded type="submit">Je valide</v-btn>
         </b-col>
       </b-row>
- 
+
       <b-row class="ligne "></b-row>
-      <b-row b-row class="justify-content-md-center text-center  " >
-        <b-col cols="10">
-        <v-btn class ="ma-4" color="primary"  elevation="4" outlined rounded @click="reservation">Afficher mes réservations</v-btn>
-        <div class="panel body">
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-              <tr>
-                <th scope="col">Date Debut de réservation</th>
-                <th scope="col">Date Fin de réservation</th>
-                <th scope="col">Nom du Bureau</th>
-                <th scope="col">nom de la salle</th>
-              </tr>
-              <tr v-for="row in allData" v-bind:key="row.id">
-                <td>{{ row.DateDebut }}</td>
-                <td>{{ row.DateFin }}</td>
-                <td>{{ row.NomRessource }}</td>
-                <td>{{ row.Nom }}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </b-col>
+      <b-row b-row class="justify-content-md-center text-center  ">
+        <h1>Réservation rapide</h1>
       </b-row>
+      <b-row b-row class="justify-content-md-center text-center pa-3 ">
+        <b-col cols="3">
+
+          <div class="card mx-auto" style="width: 18rem;">
+
+            <div class="card-body">
+              <h5 class="card-title">Réserver aujourd'hui</h5>
+              <p class="card-text">Réserver le dernier bureau que vous avez utilisé</p>
+              <v-btn color="primary" elevation="4" outlined rounded @click="resarapide(1)">Réserver aujourd'hui</v-btn>
+            </div>
+          </div>
+        </b-col>
+        <b-col cols="3">
+          <div class="card mx-auto " style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Réserver la semaine</h5>
+              <p class="card-text">Réserver le dernier bureau que vous avez utilisé</p>
+              <v-btn color="primary" elevation="4" outlined rounded @click="resarapide(2)">Réserver la semaine</v-btn>
+            </div>
+          </div>
+        </b-col>
+        <b-col cols="3">
+          <div class="card mx-auto" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Réserver le mois</h5>
+              <p class="card-text">Réserver le dernier bureau que vous avez utilisé</p>
+              <v-btn color="primary" elevation="4" outlined rounded @click="resarapide(3)">Réserver le mois</v-btn>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+      <b-row class="ligne "></b-row>
+      <b-row b-row class="justify-content-md-center text-center  ">
+        <b-col cols="10">
+          <v-btn class="ma-4" color="primary" elevation="4" outlined rounded @click="reservation">Afficher mes
+            réservations</v-btn>
+          <div class="panel body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th scope="col">Date Debut de réservation</th>
+                  <th scope="col">Date Fin de réservation</th>
+                  <th scope="col">Nom du Bureau</th>
+                  <th scope="col">nom de la salle</th>
+                </tr>
+                <tr v-for="row in allData" v-bind:key="row.id">
+                  <td>{{ row.DateDebut }}</td>
+                  <td>{{ row.DateFin }}</td>
+                  <td>{{ row.NomRessource }}</td>
+                  <td>{{ row.Nom }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+
       <div class="mb-6"></div>
       <!-- <b-row class="row justify-content-md-center" margin-top="25px">
         <b-col class="mb-6" cols="3" >
@@ -103,7 +128,7 @@
           </select>
         </b-col>
       </b-row>-->
-     
+
     </form>
 
     <!-- 
@@ -127,7 +152,7 @@
 
 <script>
 import axios from 'axios';
-import { format, addDays,getDay } from 'date-fns'
+import { format, addDays, getDay, endOfMonth } from 'date-fns'
 export default {
   data() {
     return {
@@ -146,35 +171,72 @@ export default {
     };
   },
   methods: {
-    jour:function(){
-      if(this.$store.state.UtilisateurID === ""){
+    jour: function () {
+      if (this.$store.state.UtilisateurID === "") {
         this.$store.commit("changeerreur", 'Erreur lors de la sélection de date, vous n\'êtes pas connecté !');
         console.log(this.$store.state.erreur);
         this.$router.push("/");
       }
-      else{
-      console.log(this.date_debut, this.date_fin, this.BatimentID);
-      this.$store.commit("changedate_debut", format(new Date(), 'yyyy-dd-MM'));
-      this.$store.commit("changedate_fin", format(new Date(), 'yyyy-dd-MM'));
-      this.$store.commit("changeBatimentID", this.BatimentID);
-      this.$router.push("/Selection_Bureau");
-    }
+      else {
+        console.log(this.date_debut, this.date_fin, this.BatimentID);
+        this.$store.commit("changedate_debut", format(new Date(), 'yyyy-MM-dd'));
+        this.$store.commit("changedate_fin", format(new Date(), 'yyyy-MM-dd'));
+        this.$store.commit("changeBatimentID", this.BatimentID);
+        this.$router.push("/Selection_Bureau");
+      }
 
     },
-    semaine:function(){
-      if(this.$store.state.UtilisateurID === ""){
+    semaine: function () {
+      if (this.$store.state.UtilisateurID === "") {
         this.$store.commit("changeerreur", 'Erreur lors de la sélection de date, vous n\'êtes pas connecté !');
         console.log(this.$store.state.erreur);
         this.$router.push("/");
       }
-      else{
-      console.log(this.date_debut, this.date_fin, this.BatimentID);
-      const today = new Date();
-      this.$store.commit("changedate_debut", new Date());
-      this.$store.commit("changedate_debut", format(today, 'yyyy-dd-MM'));
-this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), 'yyyy-dd-MM'));
-      this.$router.push("/Selection_Bureau");
-    }
+      else {
+        console.log(this.date_debut, this.date_fin, this.BatimentID);
+        const today = new Date();
+        this.$store.commit("changedate_debut", format(today, 'yyyy-dd-MM'));
+        this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), 'yyyy-dd-MM'));
+        this.$router.push("/Selection_Bureau");
+      }
+
+    },
+
+    resarapide: function (value) {
+      if (this.$store.state.UtilisateurID === "") {
+        this.$store.commit("changeerreur", 'Erreur lors de la sélection de date, vous n\'êtes pas connecté !');
+        console.log(this.$store.state.erreur);
+        this.$router.push("/");
+      }
+      else {
+        var self = this;
+        const today = new Date();
+        const body ={
+              UtilisateurID: this.$store.state.UtilisateurID,
+              date_debut: this.$store.state.date_debut,
+              email: this.$store.state.email,
+              RessourceID: this.$store.state.RessourceID
+        }
+        if (value == 1)  body.date_fin= this.$store.state.date_fin
+        if (value == 2)  body.date_fin = format(addDays(today, 7 - getDay(today)), 'yyyy-dd-MM')
+        if (value == 3) body.date_fin = format(endOfMonth(today), 'yyyy-dd-MM')
+
+        axios
+          .post("https://flex.sii-lemans.fr/api/resarapide.php", body)
+          .then(function (response) {
+            console.log(response.data);
+            if (response.data === "1") {
+              self.$store.commit("changeerreurresa", 'Vous avez déjà un bureau de réservé durant cette période ! Supprimez votre réservation actuelle avant d\'en faire une autre.');
+              self.$router.push("/Reservation");
+            }
+            else {
+              self.allData = response.data;
+              self.$store.commit("changeconfirmation", 'Votre réservation a été enregistrée');
+              self.$router.push("/Reservation");
+            }
+          });
+
+      }
 
     },
     reservation: function () {
@@ -187,21 +249,21 @@ this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), '
           self.allData = response.data;
         });
     },
-    envoiedata: function() {
+    envoiedata: function () {
       //this.form comment récupérer les datas du form?
-      if(this.$store.state.UtilisateurID === ""){
+      if (this.$store.state.UtilisateurID === "") {
         this.$store.commit("changeerreur", 'Erreur lors de la sélection de date, vous n\'êtes pas connecté !');
-        
+
         console.log(this.$store.state.erreur);
         this.$router.push("/");
       }
-      else{
+      else {
         console.log(this.date_debut, this.date_fin, this.BatimentID);
-      this.$store.commit("changedate_debut", this.date_debut);
-      this.$store.commit("changedate_fin", this.date_fin);
-      this.$store.commit("changeBatimentID", this.BatimentID);
-      this.$router.push("/Selection_Bureau");
-    }
+        this.$store.commit("changedate_debut", this.date_debut);
+        this.$store.commit("changedate_fin", this.date_fin);
+        this.$store.commit("changeBatimentID", this.BatimentID);
+        this.$router.push("/Selection_Bureau");
+      }
     }
   },
   mainProps: {
@@ -222,13 +284,15 @@ this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), '
   color: aliceblue;
   border-color: #fff transparent transparent transparent;
 }
+
 .ligne {
-  height: 5px;
+  height: 3px;
   width: 100%;
   background-color: rgb(2, 77, 151);
   padding: 5px;
 }
-.bouton{
+
+.bouton {
   padding: 0 20px;
 }
 </style>

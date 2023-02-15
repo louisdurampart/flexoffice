@@ -14,11 +14,14 @@ export default new Vuex.Store({
     email: '',
     nom: '',
     prenom: '',
-    date_debut:  format(new Date(), 'yyyy-dd-MM'), //moment().format('MMMM Do YYYY') ,
-    date_fin: format(new Date(), 'yyyy-dd-MM'),
+
+    date_debut:  format(new Date(), 'yyyy-MM-dd'), //moment().format('MMMM Do YYYY') ,
+    date_fin: format(new Date(), 'yyyy-MM-dd'),
     BatimentID: '1',
     BureauID:'1',
     RessourceID:'1',
+    Nomsalle: '',
+
     erreur:'',
     erreurresa:'',
     confirmation:''
@@ -30,11 +33,15 @@ export default new Vuex.Store({
     email: (state) => state.email,
     nom: (state) => state.nom,
     prenom: (state) => state.prenom,
+
     dateDebut: (state) => state.date_debut,
     dateFin: (state) => state.date_fin,
     batimentId: (state) => state.BatimentID,
     bureauId: (state) => state.BureauID,
     ressourceId: (state) => state.RessourceID,
+    Nomsalle: (state) => state.Nomsalle,
+
+
     erreur: (state) => state.erreur,
     erreurresa: (state) => state.erreurresa,
     confirmation: (state) => state.confirmation,
@@ -59,6 +66,10 @@ export default new Vuex.Store({
   changeprenom (state, payload) {
     state.prenom = payload
   },
+  changeNomsalle (state, payload) {
+    state.Nomsalle = payload
+  },
+
     changedate_debut (state, payload) {
       state.date_debut = payload
     },
@@ -72,7 +83,7 @@ export default new Vuex.Store({
       state.BureauID = payload
     },
     changeRessourceID (state, payload) {
-      state.ressourceId = payload
+      state.RessourceID = payload
     },
     changeerreur (state, payload) {
       state.erreur = payload

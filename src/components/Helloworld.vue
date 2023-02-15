@@ -9,7 +9,6 @@
 
             <form v-on:submit.prevent="fetchAllData">
               <b-row class="text-center justify-content-md-center">
-
                 <label for="inputEmail" type="email" class="pr-4">Email </label>
               </b-row>
               <b-row class="text-center justify-content-md-center">
@@ -83,6 +82,7 @@ export default {
 
   methods: {
     //permet la vérification de l'utilisateur
+   
     fetchAllData: function() {
       var self = this;
       axios
@@ -95,6 +95,14 @@ export default {
           this.$store.commit("changeemail", response.data.Email);
           this.$store.commit("changenom", response.data.Nom);
           this.$store.commit("changeprenom", response.data.Prenom);
+
+          axios .post("https://flex.sii-lemans.fr/api/derniereresa.php", this.form)
+          .then(response => {
+            console.log(response.data);
+            this.$store.commit("changeBureauID", response.data.SalleId);
+            this.$store.commit("changeRessourceID", response.data.RessourceID);
+            this.$store.commit("changeNomsalle", response.data.NomSalle);
+          })
           this.$router.push("/Selection_Batiment")
           }   // si l'email est pas null
             else{
@@ -110,6 +118,9 @@ export default {
           // this.errored = true
         })
         
+    },
+    Motdepasse: function() {
+      this.$router.push("/Email")
     },
     
   }
