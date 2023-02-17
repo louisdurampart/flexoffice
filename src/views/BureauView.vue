@@ -53,23 +53,13 @@
                 <option v-for="(row, index) in allData" :key="index" :value="row.RessourceID">{{ row.Nom }}</option>
               </select>
             </b-row>
-            <b-row v-if="current_bureau !== null">
+            <b-row v-if="form.BureauID !== ''">
               <b-card-body class="card mb-2">
               <b-card-title>Ma Salle</b-card-title>
               <b-card-sub-title class="mb-2">personnes ayant réservés dans la salle</b-card-sub-title>
               <b-list-group flush>
-                <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Prénom</th>
-              </tr>
-                <tr v-for="row in dataresa" v-bind:key="row.id">
-                <td>{{ row.Nom }}</td>
-                <td>{{ row.Prenom }}</td>
-                <td>
-                  <button @click="suppression(row.ReservationID)"> supprimer</button>
-                </td>
-              </tr>
-                <b-list-group-item>Bureau levant : {{ bureauLevant }} </b-list-group-item>
+              
+                <b-list-group-item v-for="row in dataresa" v-bind:key="row.id">{{ row.Nom }} {{ row.Prenom }}</b-list-group-item>
               </b-list-group>
             </b-card-body>
               <!-- <b-img width="250" height="auto" fluid src="../assets/bureau1nom.png" v-if="form.BureauID === ''"></b-img>
@@ -165,34 +155,19 @@ export default {
             //"http://flex.sii-lemans.fr/api/bureau.php?id=" ,body
           )
           .then(function (response) {
-            console.log(response.data);
+          
             self.allData = response.data;
          
           });
-      }
-    },
-    Nom: function () {
-      if (this.$store.state.UtilisateurID === "") {
-        this.$store.commit("changeerreur", 'Erreur lors de la sélection des bureaux, vous n\'êtes pas connecté !');
-        this.$router.push("/");
-      }
-      else {
-        var self = this;
-        let params = {
-          id: this.form.BureauID,
-          date_debut: this.$store.state.date_debut,
-          date_fin: this.$store.state.date_fin
-        }
-        axios
-          .get('https://flex.sii-lemans.fr/api/Nom.php', { params }
-            //`http://flex.sii-lemans.fr/api/bureau.php?id=${this.form.BureauID}&date_debut=${this.$store.state.date_debut}&date_fin=${this.$store.state.date_fin}`
-            //"http://flex.sii-lemans.fr/api/bureau.php?id= date_debut= date_fin= " + this.form.BureauID ,this.$store.state.date_debut, this.$store.state.date_fin
-            //"http://flex.sii-lemans.fr/api/bureau.php?id=" ,body
+
+          axios
+          .get('https://flex.sii-lemans.fr/api/NomReservation.php', { params }
           )
           .then(function (response) {
             console.log(response.data);
             self.dataresa = response.data;
           });
+
       }
     },
 

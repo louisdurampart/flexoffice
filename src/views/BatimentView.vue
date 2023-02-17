@@ -218,15 +218,16 @@ export default {
               RessourceID: this.$store.state.RessourceID
         }
         if (value == 1)  body.date_fin= this.$store.state.date_fin
-        if (value == 2)  body.date_fin = format(addDays(today, 7 - getDay(today)), 'yyyy-dd-MM')
-        if (value == 3) body.date_fin = format(endOfMonth(today), 'yyyy-dd-MM')
+        if (value == 2)  body.date_fin = format(addDays(today, 7 - getDay(today)), 'yyyy-MM-dd')
+        if (value == 3) body.date_fin = format(endOfMonth(today), 'yyyy-MM-dd')
 
+        console.log(body.date_fin);
         axios
           .post("https://flex.sii-lemans.fr/api/resarapide.php", body)
           .then(function (response) {
             console.log(response.data);
-            if (response.data === "1") {
-              self.$store.commit("changeerreurresa", 'Vous avez déjà un bureau de réservé durant cette période ! Supprimez votre réservation actuelle avant d\'en faire une autre.');
+            if (response.data !== "0") {
+              self.$store.commit("changeerreurresa", 'Vous avez déjà réserver ce bureau ou celui-ci est déjà réserver !');
               self.$router.push("/Reservation");
             }
             else {

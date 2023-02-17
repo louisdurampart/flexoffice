@@ -27,7 +27,7 @@
                 </b-row>
 
                 <b-row class="text-center justify-content-md-center">
-                <v-btn class="pa-2 ml-auto" color="accent" elevation="4" type="submit" outlined rounded>mot de passe oublié</v-btn>
+                <v-btn class="pa-2 ml-auto" color="accent" elevation="4" type="submit" outlined rounded>valider mon mot de passe</v-btn>
                   </b-row>
               </form>
             </b-card>
