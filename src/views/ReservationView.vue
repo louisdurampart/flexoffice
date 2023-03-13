@@ -9,7 +9,9 @@
     </b-row>
     <b-row align-h="center">
       <button @click="reservation">Afficher les réservations</button>
-      <b-col cols="12">
+    </b-row>
+    <b-row align-h="center">
+      <b-col cols="10">
         <div class="panel body">
           <div classe="table-responsive">
             <table class="table table-bordered table-striped">
@@ -68,8 +70,8 @@ export default {
       //appel l'action fetchall du fichier action.php 
       axios.delete('https://flex.sii-lemans.fr/api/sup_resa.php?id=' + id)
         .then((response) => {
-          this.$store.commit("changeconfirmation", 'Votre réservation a bien été annuler');
-          // PK ça marche pas ici ? a vérifier
+          this.$store.commit("changeconfirmation", 'Votre réservation a bien été annulée');
+          this.$store.commit("changeerreurresa", '');
           console.log(response)
           self.allData = response.data;
 

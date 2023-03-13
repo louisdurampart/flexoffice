@@ -55,11 +55,11 @@
         </b-col>
       </b-row>
 
-      <b-row class="ligne "></b-row>
-      <b-row b-row class="justify-content-md-center text-center  ">
+      <b-row class="ligne " v-if="derniereresa != null"></b-row>
+      <b-row b-row class="justify-content-md-center text-center  " v-if="derniereresa != null">
         <h1>Réservation rapide</h1>
       </b-row>
-      <b-row b-row class="justify-content-md-center text-center pa-3 ">
+      <b-row b-row class="justify-content-md-center text-center pa-3 " v-if="derniereresa != null">
         <b-col cols="3">
 
           <div class="card mx-auto" style="width: 18rem;">
@@ -158,16 +158,21 @@ export default {
     return {
       date_debut: "",
       date_fin: "",
+      derniereresa: this.$store.state.RessourceID,
       BatimentID: "",
       allData: '',
+       reservationId: null,
+        error: null,
       dateDisabled(ymd, date) {
-        // Disable weekends (Sunday = `0`, Saturday = `6`) and
-        // disable days that fall on the 13th of the month
-        const weekday = date.getDay();
-        const day = date.getDate();
-        // Return `true` if the date should be disabled
-        return weekday === 0 || weekday === 6;
-      }
+  // Disable weekends (Sunday = `0`, Saturday = `6`)
+  // and days that are after today
+  const weekday = date.getDay();
+  const day = date.getDate();
+  const today = new Date();
+  const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+  // Return `true` if the date should be disabled
+  return weekday === 0 || weekday === 6 || date < yesterday;
+}
     };
   },
   methods: {
@@ -195,8 +200,8 @@ export default {
       else {
         console.log(this.date_debut, this.date_fin, this.BatimentID);
         const today = new Date();
-        this.$store.commit("changedate_debut", format(today, 'yyyy-dd-MM'));
-        this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), 'yyyy-dd-MM'));
+        this.$store.commit("changedate_debut", format(new Date(), 'yyyy-MM-dd'));
+        this.$store.commit("changedate_fin", format(addDays(today, 7 - getDay(today)), 'yyyy-MM-dd'));
         this.$router.push("/Selection_Bureau");
       }
 
@@ -226,13 +231,14 @@ export default {
           .post("https://flex.sii-lemans.fr/api/resarapide.php", body)
           .then(function (response) {
             console.log(response.data);
-            if (response.data !== "0") {
-              self.$store.commit("changeerreurresa", 'Vous avez déjà réserver ce bureau ou celui-ci est déjà réserver !');
+            if (response.data.reservationId === "0" || parseInt(response.data.reservationId) === 0) {
+              // self.$store.commit("changeerreurresa", 'Erreur lors de la réservation votre bureau est déjà réservé ou vous avez déjà une réservation durant la période');
               self.$router.push("/Reservation");
             }
             else {
               self.allData = response.data;
-              self.$store.commit("changeconfirmation", 'Votre réservation a été enregistrée');
+              //Pourquoi sa marche pas quand c'est 0?
+              //  self.$store.commit("changeconfirmation", 'Votre réservation a été enregistrée');
               self.$router.push("/Reservation");
             }
           });

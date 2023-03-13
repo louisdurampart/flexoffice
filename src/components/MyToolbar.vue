@@ -4,11 +4,12 @@
      
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="this.$store.state.email !== ''"></v-app-bar-nav-icon>
       <b-img  src="../assets/SIIlogo.svg"></b-img>
-      <v-toolbar-title @click="goHome" >Le Mans Flexoffice</v-toolbar-title>
+      <v-toolbar-title @click="gobatiment" >Le Mans Flexoffice</v-toolbar-title>
         
       <v-spacer></v-spacer>
-      <v-toolbar-title @click="goProfile">{{nom}}</v-toolbar-title>
-        <v-toolbar-title @click="goProfile">{{prenom}}</v-toolbar-title>
+      <v-toolbar-title @click="goProfile"> {{ nom }} </v-toolbar-title>
+      <span>&nbsp;</span>
+        <v-toolbar-title @click="goProfile">{{ prenom }}</v-toolbar-title>
       <v-btn icon>
         <v-icon @click="goProfile" v-if="this.$store.state.email !== ''" >mdi-account-circle</v-icon>
       </v-btn>
@@ -67,6 +68,9 @@ export default {
       this.$router.replace("/Reservation");
     },
     gobatiment() {
+      
+      this.$store.commit("changeconfirmation","");
+      this.$store.commit("changeerreurresa","");
       this.$router.replace("/Selection_Batiment");
     }
   }

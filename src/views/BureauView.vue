@@ -23,14 +23,18 @@
               <select v-model="form.BureauID" @change="bureau" class="custom-select" style="width:200px;" name="salle"
                 id="BureauID">
                 <option disabled value>Choisissez une salle</option>
-                <option value="1">Virage indianapolis</option>
-                <option value="2">Virage de mulsanne</option>
-                <option value="3">Ralentisseur michelin</option>
-                <option value="4">Ralentisseur playstation</option>
-                <option value="5">Virage du tertre rouge</option>
-                <option value="6">Virage ford</option>
-                <option value="7">Virage du karting</option>
-                <option value="8">Virage porsche</option>
+                <optgroup label="Bâtiment Administration">
+        <option value="1">Virage indianapolis</option>
+        <option value="2">Virage de mulsanne</option>
+        <option value="3">Ralentisseur michelin</option>
+        <option value="4">Ralentisseur playstation</option>
+    </optgroup>
+    <optgroup label="Bâtiment Développement / Data">
+        <option value="5">Virage du tertre rouge</option>
+        <option value="6">Virage ford</option>
+        <option value="7">Virage du karting</option>
+        <option value="8">Virage porsche</option>
+    </optgroup>
               </select>
             </b-row>
             <b-row>
@@ -69,7 +73,7 @@
                 v-if="form.BureauID >= '5' && form.BureauID <= '8'"></b-img> -->
             </b-row>
           </b-col>
-          <b-col class="mb-2" cols="4" v-if="current_bureau !== null">
+          <b-col class="mb-2" cols="4" v-if="current_bureau !== null && form.BureauID !== '3' && form.BureauID !== '6'" >
  
             <b-card-body class="card">
               <b-card-title>Mon Bureau</b-card-title>
@@ -86,7 +90,9 @@
 
           </b-col>
         </b-row>
-
+        <b-row class="row justify-content-md-center">
+          <v-btn color="primary" elevation="4" outlined rounded @click="retour()">Retour</v-btn>
+        </b-row>
         <b-row class="text-center">
           <b-col v-if="current_bureau !== null" class="mb-6" cols="12">
             <h2>Votre Sélection de bureau </h2>
@@ -177,7 +183,11 @@ export default {
       );
       
     },
-
+    retour: function () {
+      this.$store.commit("changeconfirmation","");
+      this.$store.commit("changeerreurresa","");
+      this.$router.replace("/Selection_Batiment");
+    },
     reservation: function () {
       var self = this;
 
